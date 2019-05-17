@@ -14,13 +14,31 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
 from hlPY import views
+from django.urls import path,include,re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path(r'',views.home,name='home'),
-    path(r'/login',views.login,name='login'),
-    path(r'/register',views.register,name='register'),
-    path(r'ide/',views.ide,name='ide'),
+    path('login/',views.login,name='login'),
+    path('logout/',views.logout,name='logout'),
+    path('register/',views.register,name='register'),
+    path('ide/',views.ide,name='ide'),
+    path('testcode/',views.testcode,name='testcode'),
+    path('user_page/', views.user_page, name='user_page'),
+    path('',include('django.contrib.auth.urls')),
+    path('basic_course_next/',views.basic_course_next,name='basic_course_next'),
+    path('practice_course_next/',views.practice_course_next,name='practice_course_next'),
+    path('basic_course_codetest/',views.basic_course_post,name='basic_course_codetest'),
+    path('practice_course_codetest/',views.practice_course_post,name='practice_course_codetest'),
+    path('basic_code_hint/',views.basic_course_hint,name='basic_code_hint'),
+    path('practice_code_hint/',views.practice_course_hint,name='practice_course_hint'),
+    path('basic_learned_time/',views.basic_learned_time,name='basic_learned_time'),
+    path('practice_learned_time/',views.practice_learned_time,name='practice_learned_time'),
+    path('learn_basic/',views.learn_basic,name='learn_basic'),
+    path('learn_practice/',views.learn_practice,name='learn_practice'),
+    path('course/',views.course,name='course'),
+
+
+    #path('basic_course_post/',views.basic_course_post,name='basic_course_post'),
 ]
