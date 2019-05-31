@@ -95,17 +95,17 @@
       <div class="col-sm-4 icon_box text-center heading_space wow fadeInUp" data-wow-delay="500ms">
          <i class="icon-icons20"></i>
          <h4 class="text-capitalize bottom20 margin10">随时随地，想学就学</h4>
-         <p class="no_bottom">Keep away from people who try to belittle your ambitions. Small people always do that but the really great.</p>
+         <p class="no_bottom">鼓励利用工作、学业闲暇时间学习，一节课仅需10分钟以内。</p>
       </div>
       <div class="col-sm-4 icon_box text-center heading_space wow fadeInUp" data-wow-delay="500ms">
          <i class="icon-laptop"></i>
          <h4 class="text-capitalize bottom20 margin10">场景模拟，引导教学</h4>
-         <p class="no_bottom">Keep away from people who try to belittle your ambitions. Small people always do that but the really great.</p>
+         <p class="no_bottom">模拟真实编程场景，由小派一步步引导完成教学任务。</p>
       </div>
       <div class="col-sm-4 icon_box text-center heading_space wow fadeInUp" data-wow-delay="400ms">
          <i class="icon-layers"></i>
-         <h4 class="text-capitalize bottom20 margin10">创建属于自己的工具集</h4>
-         <p class="no_bottom">Keep away from people who try to belittle your ambitions. Small people always do that but the really great.</p>
+         <h4 class="text-capitalize bottom20 margin10">工具丰富，功能强大</h4>
+         <p class="no_bottom">具备功能强大的工具集，内容丰富。各取所需，想用就用。</p>
       </div>
 
   </div>
@@ -129,25 +129,25 @@
               <div class="image bottom20">
                 <img src="{% static 'img/course1.jpg' %}" alt="Courses" class="img-responsive border_radius">
               </div>
-              <h3 class="bottom15"><a href="course_detail.html">Python语言简介</a></h3>
-              <p class="bottom15">We offer the most complete house renovating services in the country, from kitchen design to bathroom remodeling.</p>
-              <a href="course_detail.html" class="btn_common blue border_radius">了解详情</a>
+              <h3 class="bottom15"><a href="{% url 'course' 'basic' 1 %}">Python基础课程</a></h3>
+              <p class="bottom15">简介：介绍Python语言特点、规则、基础语法等，建立对Python编程基础认识</p>
+              <a href="{% url 'course' 'basic' 1 %}" class="btn_common blue border_radius">进入学习</a>
             </div>
             <div class="item">
               <div class="image bottom20">
                 <img src="{% static 'img/course2.jpg' %}" alt="Courses" class="img-responsive border_radius">
               </div>
-              <h3 class="bottom15"><a href="course_detail.html">免费试学课1</a></h3>
-              <p class="bottom15">We offer the most complete house renovating services in the country, from kitchen design to bathroom remodeling.</p>
-              <a href="course_detail.html" class="btn_common blue border_radius">了解详情</a>
+              <h3 class="bottom15"><a href="{% url 'course' 'practice' 1 %}">AI入门课程</a></h3>
+              <p class="bottom15">简介：介绍AI算法中文本分词、图片内容识别等，提供AI算法的使用方式与应用场景</p>
+              <a href="{% url 'course' 'practice' 1 %}" class="btn_common blue border_radius">进入学习</a>
             </div>
             <div class="item">
               <div class="image bottom20">
                 <img src="{% static 'img/course3.jpg' %}" alt="Courses" class="img-responsive border_radius">
               </div>
-              <h3 class="bottom15"><a href="course_detail.html">免费试学课2</a></h3>
-              <p class="bottom15">We offer the most complete house renovating services in the country, from kitchen design to bathroom remodeling.</p>
-              <a href="course_detail.html" class="btn_common blue border_radius">了解详情</a>
+              <h3 class="bottom15"><a href="{% url 'course' 'practice' 2 %}">算法基础课程</a></h3>
+              <p class="bottom15">简介：介绍五大基础算法设计思想及其典型算法的思路与实现方式，拓宽编程思路</p>
+              <a href="{% url 'course' 'practice' 2 %}" class="btn_common blue border_radius">进入学习</a>
             </div>
 
           </div>
@@ -164,33 +164,30 @@
     <div class="row">
       <div class="col-md-7 col-sm-6 priorty wow fadeInLeft" data-wow-delay="300ms">
         <h2 class="heading bottom25">欢迎来到快乐学Python的世界 <span class="divider-left"></span></h2>
-        <p class="half_space">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        <p>consectetur id. Aenean sit amet massa eu velit commodo cursus fringilla a tellus. Morbi eros urna, mollis porta feugiat non, ornare eu augue.
-        Sed rhoncus est sit amet diam tempus, et tristique est vive, sectur at dapibus id, luctus at odio. Proin mattis congue tristique
-        eu augue. Sed rhoncus est.</p>
+        <p class="half_space">快乐学Python可以有效提升青少年的逻辑思维能力、引导启迪孩子对编程类学习的热爱，帮助孩子科学智能学习Python。同时快乐学Python为初学者准备了普适性强的实战项目，面向实际应用，助力职场发展。我们的目标是推出具有智能学习引导、优秀学习课程、上手简单的Python学习平台和课程，同时增加场景化工具集，解决青少年与初学者学习编程的问题。</p>
         <div class="row">
           <div class="col-md-6">
             <div class="about-post">
             <a class="border_radius"><img src="{% static 'img/hands.png' %}" alt="hands"></a>
             <h4>教学模式</h4>
-            <p>Renean sit amet massa</p>
+            <p>交互式教学模式</p>
             </div>
             <div class="about-post">
             <a class="border_radius"><img src="{% static 'img/awesome.png' %}" alt="hands"></a>
             <h4>课程设计</h4>
-            <p>Renean sit amet massa</p>
+            <p>贴近生活寓教于乐</p>
             </div>
           </div>
           <div class="col-md-6">
             <div class="about-post">
             <a class="border_radius"><img src="{% static 'img/maintenance.png' %}" alt="hands"></a>
             <h4>模拟实战</h4>
-            <p>Renean sit amet massa</p>
+            <p>立足职场助力发展</p>
             </div>
             <div class="about-post">
             <a class="border_radius"><img src="{% static 'img/home.png' %}" alt="hands"></a>
-            <h4>作品展示</h4>
-            <p>Renean sit amet massa</p>
+            <h4>实用工具</h4>
+            <p>有效提高工作效率</p>
             </div>
           </div>
         </div>
@@ -208,15 +205,8 @@
     <div class="row">
       <div class="col-md-4 col-sm-4 footer_panel bottom25">
         <h3 class="heading bottom25">关于我们<span class="divider-left"></span></h3>
-        <a href="index.html" class="footer_logo bottom25"><img src="{% static 'img/logo-white.png' %}" alt="Edua"></a>
-        <p>快乐学Python致力于。。。。</p>
-        <ul class="social_icon top25">
-          <li><a href="https://wx.qq.com/" class="wechat" target="_blank"><i class="fa fa-wechat"></i></a></li>
-          <li><a href="http://mail.10086.cn/" class="mail" target="_blank"><i class="icon-mail"></i></a></li>
-          <li><a href="#." class="qq"><i class="fa fa-qq" target="_blank"></i></a></li>
-          <li><a href="https://feixin.10086.cn/" class="message" target="_blank"><i class="icon-message"></i></a></li>
-          <li><a href="https://weibo.com/" class="weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
-        </ul>
+        <a href="{% url 'home' %}" class="footer_logo bottom25"><img src="{% static 'img/logo-white.png' %}" alt="Edua" width="107px" height="48px"></a>
+        <p>本产品致力于推出具有智能引导、内容新颖有趣、上手简单的Python课程，提供编程环境和实用性强的工具集。有效提升青少年的逻辑思维能力、科学系统高效地学习Python；为职场编程新人提供实战课程，面向实际工作，助力职场发展。</p>
       </div>
       <div class="col-md-4 col-sm-4 footer_panel bottom25">
         <h3 class="heading bottom25">快速链接<span class="divider-left"></span></h3>
@@ -225,7 +215,7 @@
           <li><a href="#."><i class="icon-chevron-small-right"></i>基础课程</a></li>
           <li><a href="#."><i class="icon-chevron-small-right"></i>实战课程</a></li>
           <li><a href="#."><i class="icon-chevron-small-right"></i>编程环境</a></li>
-          <li><a href="#."><i class="icon-chevron-small-right"></i>作品展示</a></li>
+          <li><a href="#."><i class="icon-chevron-small-right"></i>工具集</a></li>
           <li><a href="#."><i class="icon-chevron-small-right"></i>在线客服</a></li>
           <li><a href="#."><i class="icon-chevron-small-right"></i>联系我们</a></li>
           <li><a href="#."><i class="icon-chevron-small-right"></i>登录/注册</a></li>
@@ -233,9 +223,9 @@
       </div>
       <div class="col-md-4 col-sm-4 footer_panel bottom25">
         <h3 class="heading bottom25">联系我们 <span class="divider-left"></span></h3>
-        <p class=" address"><i class="fa fa-qq"></i>xxxxxx</p>
-        <p class=" address"><i class="icon-sina-weibo"></i>@happypython</p>
-        <p class=" address"><i class="icon-mail"></i><a href="mailto:happypython@139.com">happypython@139.com</a></p>
+          <p class=" address"><a href="https://wx.qq.com/" class="wechat" target="_blank"><i class="fa fa-wechat"></i>&nbsp;xxxxxx</a></p>
+        <p class=" address"><a href="https://weibo.com/" class="weibo" target="_blank"><i class="icon-sina-weibo"></i>&nbsp;@快乐学Python</a></p>
+        <p class=" address"><a href="http://mail.10086.cn/" class="mail" target="_blank"><i class="icon-mail"></i>&nbsp;happypython@139.com</a></p>
       </div>
     </div>
   </div>

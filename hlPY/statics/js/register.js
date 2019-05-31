@@ -156,12 +156,62 @@ $(function () {
 
     //	提交按钮
     $("#submit_btn").click(function (e) {
+
         // alert($('input').length )
         if ($("input[name='identify']").val().toUpperCase() != $("#code").text().toUpperCase()) {
             $("input[name='identify']").parent().next().next("div").text("验证码不正确");
             $("input[name='identify']").parent().next().next("div").css("color", 'red');
             e.preventDefault();
             return;
+        }else if($("input[name='identify']").val().toUpperCase() != $("#code").text().toUpperCase()) {
+            // alert($("#code").text())
+            // alert()
+            $(this).parent().next().next("div").text("验证码不正确");
+            $(this).parent().next().next("div").css("color", 'red');
+            e.preventDefault();
+            return;
+        }else if($("input[name='phone']").val().substr(0, 1) != 1 || $("input[name='phone']").val().length != 11 || $("input[name='phone']").val().match(/[^0-9]/g)) {
+            $("input[name='phone']").parent().next("div").text("手机号格式不正确");
+            $("input[name='phone']").parent().next("div").css("color", 'red');
+            e.preventDefault();
+            return;
+        }else if ($("input[name='password2']").val() != $("input[name='password']").val()) {
+            $(this).parent().next("div").text("两次密码不匹配");
+            $(this).parent().next("div").css("color", 'red');
+            e.preventDefault();
+            return;
+        }else if (!$("input[name='email']").val().match(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/)) {
+            $("input[name='email']").parent().next("div").text("邮箱格式不正确");
+            $("input[name='email']").parent().next("div").css("color", 'red');
+            e.preventDefault();
+            return;
+        }else if ($("input[name='age']").val().length > 2) {
+            $("input[name='age']").parent().next("div").text("长度只能在2个字符以内");
+            $("input[name='age']").parent().next("div").css("color", 'red');
+            e.preventDefault();
+            return;
+        }else if($("input[name='age']").val().match(/[^1-9]/g,'')){
+            $("input[name='age']").parent().next("div").text("年龄只能是正整数");
+            $("input[name='age']").parent().next("div").css("color", 'red');
+            e.preventDefault();
+            return;
+        }else if($("#xieyi")[0].checked == false){
+            // alert("xieyi");
+            $("#xieyitishi").text("请勾选协议");
+            $("#xieyitishi").css("color", 'red');
+            // alert("321212")
+            e.preventDefault();
+            return;
+        }else{
+                var encrypt = new JSEncrypt();
+                var pubkey='MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCTTxg035BIC/NNkjg67w6+uS4bx9f9CkCRM8/y8SqfC2GKA1+bq4z4ukLFhh8zaLmHexXWoxST/F7HEyfebt0y7QkuwVbF0QUyEGLNEGhV5a/WEC/E/96c/eUi1yKlZh69MbsxxvTMVldaqoPtC3N/0vlNYHmVyOBjp7gZReFb3wIDAQAB';
+                encrypt.setPublicKey(pubkey);
+                var password = encrypt.encrypt($("input[name='password']").val());
+                // alert(password);
+                $("input[name='password']").val(password);
+                //     $("input[name='password2']").attr("value",password)
+                // alert("2123");
+                // alert($("input[name='password']").val());
         }
 
         //提交时验证input不能为空
@@ -183,44 +233,44 @@ $(function () {
                 }
     }
 
-        if($("input[name='identify']").val().toUpperCase() != $("#code").text().toUpperCase()) {
-            // alert($("#code").text())
-            // alert()
-            $(this).parent().next().next("div").text("验证码不正确");
-            $(this).parent().next().next("div").css("color", 'red');
-            e.preventDefault();
-            return;
-        }
-        if ($("input[name='phone']").val().substr(0, 1) != 1 || $("input[name='phone']").val().length != 11 || $("input[name='phone']").val().match(/[^0-9]/g)) {
-            $("input[name='phone']").parent().next("div").text("手机号格式不正确");
-            $("input[name='phone']").parent().next("div").css("color", 'red');
-            e.preventDefault();
-            return;
-        }
-        if ($("input[name='password2']").val() != $("input[name='password']").val()) {
-            $(this).parent().next("div").text("两次密码不匹配");
-            $(this).parent().next("div").css("color", 'red');
-            e.preventDefault();
-            return;
-        }
-        if (!$("input[name='email']").val().match(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/)) {
-            $("input[name='email']").parent().next("div").text("邮箱格式不正确");
-            $("input[name='email']").parent().next("div").css("color", 'red');
-            e.preventDefault();
-            return;
-        }
-        if ($("input[name='age']").val().length > 2) {
-            $("input[name='age']").parent().next("div").text("长度只能在2个字符以内");
-            $("input[name='age']").parent().next("div").css("color", 'red');
-            e.preventDefault();
-            return;
-        }
-        if($("input[name='age']").val().match(/[^1-9]/g,'')){
-            $("input[name='age']").parent().next("div").text("年龄只能是正整数");
-            $("input[name='age']").parent().next("div").css("color", 'red');
-            e.preventDefault();
-            return;
-        }
+        // if($("input[name='identify']").val().toUpperCase() != $("#code").text().toUpperCase()) {
+        //     // alert($("#code").text())
+        //     // alert()
+        //     $(this).parent().next().next("div").text("验证码不正确");
+        //     $(this).parent().next().next("div").css("color", 'red');
+        //     e.preventDefault();
+        //     return;
+        // }
+        // if ($("input[name='phone']").val().substr(0, 1) != 1 || $("input[name='phone']").val().length != 11 || $("input[name='phone']").val().match(/[^0-9]/g)) {
+        //     $("input[name='phone']").parent().next("div").text("手机号格式不正确");
+        //     $("input[name='phone']").parent().next("div").css("color", 'red');
+        //     e.preventDefault();
+        //     return;
+        // }
+        // if ($("input[name='password2']").val() != $("input[name='password']").val()) {
+        //     $(this).parent().next("div").text("两次密码不匹配");
+        //     $(this).parent().next("div").css("color", 'red');
+        //     e.preventDefault();
+        //     return;
+        // }
+        // if (!$("input[name='email']").val().match(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/)) {
+        //     $("input[name='email']").parent().next("div").text("邮箱格式不正确");
+        //     $("input[name='email']").parent().next("div").css("color", 'red');
+        //     e.preventDefault();
+        //     return;
+        // }
+        // if ($("input[name='age']").val().length > 2) {
+        //     $("input[name='age']").parent().next("div").text("长度只能在2个字符以内");
+        //     $("input[name='age']").parent().next("div").css("color", 'red');
+        //     e.preventDefault();
+        //     return;
+        // }
+        // if($("input[name='age']").val().match(/[^1-9]/g,'')){
+        //     $("input[name='age']").parent().next("div").text("年龄只能是正整数");
+        //     $("input[name='age']").parent().next("div").css("color", 'red');
+        //     e.preventDefault();
+        //     return;
+        // }
 
 
 
@@ -240,7 +290,5 @@ $(function () {
             e.preventDefault();
             return;
         }
-
-
     })
 })

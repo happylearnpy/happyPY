@@ -1,10 +1,13 @@
 input{
-    border-radius: 8px;
+    border-radius: 5px;
     outline:none;
     background-color: black;
-    padding: 5px 12px;
-    border-width: 0px;
+    padding: 5px 12px 5px 29px;
+    border: 1px solid #c4d5e0;
 }
+/*#faster{*/
+/*    background: url(../img/login.jpg) no-repeat;!important;*/
+/*}*/
 button{
     background-color: #008CBA;
     border: none;
@@ -27,9 +30,14 @@ button:active {
   transform: translateY(4px);
 }
 
-/*th {*/
-/*    text-align:center!important;*/
+/*.yuan{*/
+/*    height:100px;*/
+/*    width:150px ;*/
 /*}*/
-/*td {*/
-/*    text-align:center!important;*/
+/*.studytime{*/
+/*    width: 225px;*/
+
+/*}*/
+/*.studyname{*/
+/*   width: 225px;*/
 /*}*/

@@ -19,6 +19,11 @@ import smtplib
 from email.header import Header
 from email.mime.text import MIMEText
 import random,string
+from Crypto.PublicKey import RSA
+import base64
+from Crypto.Cipher import PKCS1_v1_5 as Cipher_pkcs1_v1_5
+import hlPY.viewsall.Rsa as rsa
+
 
 File = settings.BASE_DIR
 File1 = 'hlPY'
@@ -42,7 +47,8 @@ def login(request):
     # redirect_to = request.REQUEST.get('next', '')
     if request.method == 'POST':
         username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
+        passwd = request.POST.get('password', '')
+        password = jiemi(passwd)
         '''
                user = user_info.objects.get(username=username)
                if user and user.password == password:
@@ -93,6 +99,7 @@ def register(request):
                     # return render(request,'login/register.html',{"ERROR":"该邮箱已用于注册"})
                     return render_to_response('login/register.html', {'error': "该邮箱已用于注册"})
                 else:
+                    password = jiemi(password)
                     psd = make_password(password)
                     insert_database = user_info(username=username, password=psd, phone=phone, email=email, sex=sex,
                                                 age=age,
@@ -422,6 +429,7 @@ def user_info_modify(request):
                         user_info.objects.filter(username=username).update(password=psd, email=email)
                         return JsonResponse({"success":True})
                     if password:
+                        password = jiemi(password)
                         psd = make_password(password)
                         user_info.objects.filter(username=username).update(password=psd, email=email)
                         return JsonResponse( {"success": True,"status":"密码修改成功"})
@@ -436,6 +444,7 @@ def user_info_modify(request):
                             user_info.objects.filter(username=username).update(password=psd, email=email, phone=phone)
                             return JsonResponse({"success": True})
                         if password:
+                            password = jiemi(password)
                             psd = make_password(password)
                             user_info.objects.filter(username=username).update(password=psd, email=email, phone=phone)
                             return JsonResponse({"success": True, "status": "密码修改成功"})
@@ -1758,6 +1767,7 @@ def forget_passwd1(request):
             print(select_code[0]["first_name"] == request.POST.get('identify', ''))
             if select_code[0]["first_name"] == request.POST.get('identify', ''):
                 password = request.POST.get('password','')
+                password = jiemi(password)
                 password = make_password(password)
                 user_info.objects.filter(email=email).update(password=password)
                 print("1")
@@ -1768,3 +1778,17 @@ def forget_passwd1(request):
 
 def forget_passwd(request):
     return render(request,'login/forget_passwd.html', locals())
+
+
+
+'''解密password'''
+def jiemi(password):
+    # 生成秘钥
+
+    with open(settings.BASE_DIR+'/hlPY/statics/pem/master-private.pem') as f:
+        key = f.read()
+    rsakey = RSA.importKey(key)
+    cipher = Cipher_pkcs1_v1_5.new(rsakey)
+    mw=cipher.decrypt(base64.b64decode(password),rsa.RANDOM_GENERATOR )
+    print(type(mw))
+    return mw.decode()
