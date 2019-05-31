@@ -9,6 +9,7 @@
 
 <script src="{% static "js/jquery-1.12.4.min.js" %}" type="text/javascript" charset="utf-8"></script>
 <script src="{% static 'js/jquery-2.2.3.js' %}"></script>
+<script src="{% static 'js/jsencrypt.min.js' %}"></script>
 <script>
     $(function () {
         var wait = 60 * 5;
@@ -98,10 +99,15 @@
         )
         //将验证码和新密码发至后台
         $("#login_submit_btn1").click(function (e) {
+                var encrypt = new JSEncrypt();
+                var pubkey='MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCTTxg035BIC/NNkjg67w6+uS4bx9f9CkCRM8/y8SqfC2GKA1+bq4z4ukLFhh8zaLmHexXWoxST/F7HEyfebt0y7QkuwVbF0QUyEGLNEGhV5a/WEC/E/96c/eUi1yKlZh69MbsxxvTMVldaqoPtC3N/0vlNYHmVyOBjp7gZReFb3wIDAQAB';
+                encrypt.setPublicKey(pubkey);
+
             if (wait != 300) {
                 var email = $("#emailid").val();
                 var identify = $("#identifyid").val();
-                var password = $("#passwordid").val();
+                var password = encrypt.encrypt($("#passwordid").val());
+                {#var password = $("#passwordid").val();#}
                 var buttonid = "passwordid";
                 $.ajax({
                     type: "post",
@@ -146,7 +152,7 @@
 <body>
 <header>
     <a href="#" class="logo"></a>
-    <div class="desc">找回密码</div>
+{#    <div class="desc">找回密码</div>#}
 </header>
 <form action=" " method="post">
     {% csrf_token %}
@@ -165,7 +171,7 @@
                 <input AutoComplete="Off" maxlength="20" id="identifyid" name="identify" placeholder="请注意！验证码区分大小写！">
             </label></div>
         <div style="height:50px;float: right;padding-top:1px">
-            <input style="height: 50px; width: 110px;padding:5px 12px;" type="button" id="btn" class="btn_mfyzm"
+            <input style="height: 50px; width: 110px;padding:5px 12px; background: #00aced" type="button" id="btn" class="btn_mfyzm"
                    value="获取验证码"/>
         </div>
 

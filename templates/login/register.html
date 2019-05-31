@@ -11,11 +11,12 @@
 {#<script src="{% static "js/jquery-1.12.4.min.js" %}" type="text/javascript" charset="utf-8"></script>#}
 <script src="{% static 'js/jquery-2.2.3.js' %}"></script>
 <script src="{% static "js/register.js" %}"></script>
+<script src="{% static 'js/jsencrypt.min.js' %}"></script>
 
 <body>
 <header>
     <a href="#" class="logo"></a>
-    <div class="desc">欢迎注册</div>
+{#    <div class="desc">欢迎注册</div>#}
 </header>
 <form action="" id="form1" method="post">
     {% csrf_token %}
@@ -95,10 +96,11 @@
         </div>
     </div>
     <div class="arguement">
-        <input type="checkbox" id="xieyi"> 阅读并同意
+        <label style="color: snow">
+        <input type="checkbox" id="xieyi">阅读并同意</label>
         <a href="#">《快乐学python用户注册协议》</a>
         <a href="#">《隐私政策》</a>
-        <div class="tips">
+        <div class="tips" id="xieyitishi">
 
         </div>
     </div>

@@ -12,10 +12,14 @@ $("#changeback").click(function (e) {    //通过“返回”这个按钮将修�
     e.preventDefault();
 })
 function postinfo() {
+    // alert("postinfo")
+    var encrypt = new JSEncrypt();
+    var pubkey='MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCTTxg035BIC/NNkjg67w6+uS4bx9f9CkCRM8/y8SqfC2GKA1+bq4z4ukLFhh8zaLmHexXWoxST/F7HEyfebt0y7QkuwVbF0QUyEGLNEGhV5a/WEC/E/96c/eUi1yKlZh69MbsxxvTMVldaqoPtC3N/0vlNYHmVyOBjp7gZReFb3wIDAQAB';
+    encrypt.setPublicKey(pubkey);
     var phone = $("input[name='phone']").val();
-    var password = $("input[name='password2']").val();
+    var password = encrypt.encrypt($("input[name='password2']").val());
     var email = $("input[name='email']").val();
-
+    // alert(password);
     $.ajax({
         type: "post",
         url: "../user_info_modify/",
@@ -63,7 +67,7 @@ function postinfo() {
 
 }
 function checkin(e){
-    // alert("qwe");
+     // alert("qwe");
     //提交时，判定手机格式及内容
     if (phonenumber != $("input[name='phone']").val()) {
         if ($("input[name='phone']").val().substr(0, 1) != 1 || $("input[name='phone']").val().length != 11 || $("input[name='phone']").val().match(/[^0-9]/g)) {
@@ -221,12 +225,8 @@ $("input[name='password2']").blur(function () {
 //
 // })
 $("#changeconfirm").click(function (e) {
-
     checkin(e);
-    // alert("123");
-    // alert(off);
     if(off == true) {
-        // alert("4656");
         postinfo();
 
     }
@@ -234,10 +234,21 @@ $("#changeconfirm").click(function (e) {
 
 
 $("#finishbutton").click(function (e) {      //通过“已完成课程”这个按钮，将完成课程的表单显示出来
+
     $("#finishcourse").show();    //将form表单信息显示
+
+    var fasterHeight = $('#son').height();
+
+   		$("#faster").css({height: fasterHeight+'px'});
+   		return
 })
 $("#finishback").click(function (e) {    //通过“返回”这个按钮，将完成课程的表单隐藏起来
     $("#finishcourse").hide();
     e.preventDefault();
+        // var fasterHeight = $('#son').height();
+        // alert(fasterHeight);
+        //
+   		// $("#faster").css({height: fasterHeight+'px'});
+
 })
 
