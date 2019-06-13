@@ -2,7 +2,7 @@
 import os, sys, subprocess, tempfile, time
 
 # 创建临时文件夹,返回临时文件夹路径
-TempFile = tempfile.mkdtemp(suffix='_test', prefix='python_')
+TempFile = tempfile.mkdtemp(prefix='python_')
 # 文件名
 FileNum = int(time.time() * 1000)
 # python编译器位置
@@ -50,12 +50,18 @@ def main(code):
     try:
         # subprocess.check_output 是 父进程等待子进程完成，返回子进程向标准输出的输出结果
         # stderr是标准输出的类型
-        outdata = decode(subprocess.check_output([EXEC, fpath], stderr=subprocess.STDOUT, timeout=120))
+        outdata = decode(subprocess.check_output([EXEC, fpath], stderr=subprocess.STDOUT, timeout=5))
     except subprocess.CalledProcessError as e:
         # e.output是错误信息标准输出
         # 错误返回的数据
         r["code"] = 'Error'
-        r["output"] = decode(e.output)
+        r["output"] = decode(e.output).split('\n')[-2]
+        return r
+    except subprocess.TimeoutExpired as e:
+        # e.output是错误信息标准输出
+        # 错误返回的数据
+        r["code"] = 'Error'
+        r["output"] = '您的程序已超时'
         return r
     else:
         # 成功返回的数据
@@ -75,14 +81,21 @@ def correct(file):
     r["version"] = get_version()
     pyname = get_pyname()
     try:
+        print(EXEC)
         # subprocess.check_output 是 父进程等待子进程完成，返回子进程向标准输出的输出结果
         # stderr是标准输出的类型
-        outdata = decode(subprocess.check_output([EXEC, file], stderr=subprocess.STDOUT, timeout=120))
+        outdata = decode(subprocess.check_output([EXEC, file], stderr=subprocess.STDOUT, timeout=5))
     except subprocess.CalledProcessError as e:
         # e.output是错误信息标准输出
         # 错误返回的数据
         r["code"] = 'Error'
-        r["output"] = decode(e.output)
+        r["output"] = decode(e.output).split('\n')[-2]
+        return r
+    except subprocess.TimeoutExpired as e:
+        # e.output是错误信息标准输出
+        # 错误返回的数据
+        r["code"] = 'Error'
+        r["output"] = '您的程序已超时'
         return r
     else:
         # 成功返回的数据
@@ -97,7 +110,13 @@ def correct(file):
 
 if __name__ == '__main__':
   #code = "import math           math.sqrt(16)"
-  file = 'E:\\python\\happyPY\\hlPY\\results\\1_1_9.txt'
-  print(correct(file))
+
+  code = "while True:print(1)"
+  result=main(code)
+  file = 'E:\\python\\happyPY\\hlPY\\results\\practice\\test.txt'
+  result1=correct(file)
+  print(result)
+  #print(result1)
+
 
 
