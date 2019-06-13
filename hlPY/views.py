@@ -23,7 +23,7 @@ from Crypto.PublicKey import RSA
 import base64
 from Crypto.Cipher import PKCS1_v1_5 as Cipher_pkcs1_v1_5
 import hlPY.viewsall.Rsa as rsa
-
+from django.utils.http import urlquote
 
 File = settings.BASE_DIR
 File1 = 'hlPY'
@@ -31,6 +31,8 @@ File2 = 'results'
 File3 = 'hints'
 File4 = 'basic'
 File5 = 'practice'
+File6 = 'tools'
+File7 = 'pictures'
 
 '''首页'''
 
@@ -1279,7 +1281,7 @@ def basic_learned_time(request):
 '''统计用户学习时长函数，根据获取到的课程id，章节id，语句id和学习时长以及session中的用户名，
 在数据库表practice_learn_progress中更新该章节，该用户的学习时长'''
 
-
+@login_required
 @csrf_exempt
 def practice_learned_time(request):
     if request.method == 'POST':
@@ -1378,7 +1380,7 @@ def practice_learned_time(request):
 
 """用户页面跳转学习界面函数，点击相应“继续学习”按钮，将用户页面返回的课程类型、课程id、课程名，传至学习界面，匹配相应导航栏"""
 
-
+@login_required
 def continue_baic_learn1(request):
     if request.method == 'POST':
         if request.session["user"]:
@@ -1525,6 +1527,7 @@ def continue_baic_learn1(request):
 
 
 '''工具集展示页面，显示全量的工具集'''
+@login_required
 def tool_display(request):
     select_tools = user_tool.objects.values('tool_id', 'tool_name', 'tool_describe', 'tool_image',
                                             'download_num').distinct()
@@ -1535,7 +1538,7 @@ def tool_display(request):
         tool['tool_id'] = list(select_tools)[i]['tool_id']
         tool['tool_name'] = list(select_tools)[i]['tool_name']
         tool['tool_describe'] = list(select_tools)[i]['tool_describe']
-        tool['tool_image'] = list(select_tools)[i]['tool_image']
+        tool['tool_image'] = os.path.join(File7,list(select_tools)[i]['tool_image'])
         tool['download_num'] = list(select_tools)[i]['download_num']
         alltools.append(tool)
     t['tool_info'] = alltools
@@ -1549,16 +1552,19 @@ def tool_download(request, tool_id):
     if request.method == 'GET':
         # tool_id = request.GET.get('tool_id')
         select_tool = user_tool.objects.values('save_dir', 'download_num', 'tool_name').filter(tool_id=tool_id)
-        path = select_tool[0]['save_dir']
+        path = os.path.join(File,File1,File6,select_tool[0]['save_dir'])
         download_num = select_tool[0]['download_num']
-        download_num = download_num + 1
-        user_tool.objects.filter(tool_id=tool_id).update(download_num=download_num)
-        file = open(path, 'rb')
-        response = FileResponse(file)
-        # response['Content-Type'] = 'application/octet-stream'
-        response['Content-Type'] = 'application/zip'
-        response['Content-Disposition'] = 'attachment;filename=' + select_tool[0]['tool_name'] + '.zip'
-        return response
+        if os.path.exists(path):
+            download_num = download_num + 1
+            user_tool.objects.filter(tool_id=tool_id).update(download_num=download_num)
+            file = open(path, 'rb')
+            response = FileResponse(file)
+            # response['Content-Type'] = 'application/octet-stream'
+            response['Content-Type'] = 'application/zip'
+            response['Content-Disposition'] = 'attachment;filename=' + urlquote(select_tool[0]['tool_name'] + '.zip')
+            return response
+        else:
+            return render(request, '404.html')
 
 
 '''显示全量basic课程页面'''
@@ -1571,7 +1577,7 @@ def basic_course(request):
         course = {}
         course['course_name'] = list(select_basic)[i]['basic_name']
         course['course_id'] = list(select_basic)[i]['basic_id']
-        course['course_image'] = list(select_basic)[i]['basic_image']
+        course['course_image'] = os.path.join(File7,list(select_basic)[i]['basic_image'])
         allcourses.append(course)
     c['course_info'] = allcourses
     c['course_type'] = 'basic'
@@ -1588,7 +1594,7 @@ def practice_course(request):
         course = {}
         course['course_name'] = list(select_practice)[i]['practice_name']
         course['course_id'] = list(select_practice)[i]['practice_id']
-        course['course_image'] = list(select_practice)[i]['practice_image']
+        course['course_image'] = os.path.join(File7,list(select_practice)[i]['practice_image'])
         allcourses.append(course)
     c['course_info'] = allcourses
     c['course_type'] = 'practice'

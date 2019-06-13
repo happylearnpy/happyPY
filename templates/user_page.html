@@ -40,7 +40,7 @@
                     {% for i in basic_course_info %}
                         {% if  i.rate != "100%" %}
 
-                            <tr border="0.1">
+                            <tr  border="0.1"  >
 
                                 {#                 课程名称#}
                                 <td class="studyname">{{ i.basic_course_name }}</td>
@@ -113,7 +113,7 @@
                     {% for i in basic_course_info %}
 
                         {% if  i.rate == "100%" %}
-                            <tr border="0.1">
+                            <tr id="learned1" border="0.1">
                                 <td>{{ i.basic_course_name }}</td>
                                 <td style="display: none" class="rate">{{ i.rate }}</td>
                                 <td style="display: none" class="course_name">{{ i.basic_course_name }}</td>
@@ -137,7 +137,7 @@
                     {% for j in practice_course_info %}
 
                         {% if  j.rate == "100%" %}
-                            <tr border="0.1">
+                            <tr id="learned2" border="0.1">
                                 <td>{{ j.practice_course_name }}</td>
                                 <td style="display: none" class="rate">{{ j.rate }}</td>
                                 <td style="display: none" class="course_name">{{ j.practice_course_name }}</td>

@@ -1,4 +1,5 @@
 var  off=false;
+var h = document.documentElement.clientHeight;
 $("#changeinfo").click(function (e) {    //通过“修改信息”这个按钮，将修改信息的表单显示出来
     $("#change").show();    //将form表单信息显示
 })
@@ -117,18 +118,6 @@ function checkin(e){
 
 }
 
-
-// 对修改的信息进行验证
-
-//     $("#changeconfirm").onmouseover(function () {
-//         if($("input[name='phone']").val().substr(0, 1) != 1 || $("input[name='phone']").val().length != 11 || $("input[name='phone']").val().match(/[^0-9]/g)||$("input[name='email']").val().length == 0||!$("input[name='email']").val().match(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/)||$("input[name='password2']").val() != $("input[name='password']").val()) {
-//
-// $("#changeconfirm").attr("disabled", true);
-// return
-//         }
-//
-//     })
-
 //当光标移动时，验证手机号的格式
 $("input[name='phone']").blur(function () {
     if ($(this).val().length == 0) {
@@ -180,50 +169,7 @@ $("input[name='password2']").blur(function () {
         // $("#changeconfirm").attr("disabled", false);
     }
 })
-// $("#changeconfirm").mouseover(function (e) {
-//     // alert(phonenumber);
-//
-//     //提交时，判定手机格式及内容
-//     if (phonenumber != $("input[name='phone']").val()) {
-//         if ($("input[name='phone']").val().substr(0, 1) != 1 || $("input[name='phone']").val().length != 11 || $("input[name='phone']").val().match(/[^0-9]/g)) {
-//             $("input[name='phone']").parent().next("div").text("手机号格式不正确");
-//             $("input[name='phone']").parent().next("div").css("color", 'red');
-//             $("#changeconfirm").attr("disabled", true);
-//             return;
-//         }else {
-//            return;
-//         }
-//     }
-//     //提交时，判定邮箱格式及内容
-//     if ($("input[name='email']").val().length == 0) {
-//         $("input[name='email']").parent().next("div").text("邮箱不能为空");
-//         $("input[name='email']").parent().next("div").css("color", 'red');
-//         $("#changeconfirm").attr("disabled", true);
-//     } else if (!$("input[name='email']").val().match(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/)) {
-//         $("input[name='email']").parent().next("div").text("邮箱格式不正确");
-//         $("input[name='email']").parent().next("div").css("color", 'red');
-//         $("#changeconfirm").attr("disabled", true);
-//     } else {
-//         $("input[name='email']").parent().next("div").text("");
-//     }
-//
-//     //提交时，判定密码是否一致
-//     if ($("input[name='password2']").val() != $("input[name='password']").val()) {
-//         $("input[name='password2']").parent().next("div").text("两次密码不相同");
-//         $("input[name='password2']").parent().next("div").css("color", 'red');
-//         $("#changeconfirm").attr("disabled", true);
-//     } else {
-//         $("input[name='password2']").parent().next("div").text("");
-//     }
-// })
-// $("#changeconfirm").onmouseover(function () {
-//     // if ($("input[name='phone']").val().substr(0, 1) != 1 || $("input[name='phone']").val().length != 11 || $("input[name='phone']").val().match(/[^0-9]/g) || $("input[name='email']").val().length == 0 || !$("input[name='email']").val().match(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/) || $("input[name='password2']").val() != $("input[name='password']").val()) {
-//     if ( !$("input[name='email']").val().match(/^[a-zA-Z0-9_-]+@([a-zA-Z0-9]+\.)+(com|cn|net|org)$/) ) {
-//         $("#changeconfirm").attr("disabled", true);
-//         return
-//     }
-//
-// })
+
 $("#changeconfirm").click(function (e) {
     checkin(e);
     if(off == true) {
@@ -236,14 +182,30 @@ $("#changeconfirm").click(function (e) {
 $("#finishbutton").click(function (e) {      //通过“已完成课程”这个按钮，将完成课程的表单显示出来
 
     $("#finishcourse").show();    //将form表单信息显示
+if ($("#learned1").length==0&&$("#learned2").length==0) {
 
+    $("#faster").css({height:h+"px" });
+    // alert("1")
+}else {
+    // alert("123")
     var fasterHeight = $('#son').height();
 
    		$("#faster").css({height: fasterHeight+'px'});
    		return
+}
+
 })
 $("#finishback").click(function (e) {    //通过“返回”这个按钮，将完成课程的表单隐藏起来
     $("#finishcourse").hide();
+    var b=$("#finishcourse").length;
+    if ($("#finishcourse").length==1) {
+
+        $("#faster").css({height:h+"px" });
+    }else {
+
+        // alert(b)
+    }
+
     e.preventDefault();
         // var fasterHeight = $('#son').height();
         // alert(fasterHeight);
