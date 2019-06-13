@@ -1798,3 +1798,6 @@ def jiemi(password):
     mw=cipher.decrypt(base64.b64decode(password),rsa.RANDOM_GENERATOR )
     print(type(mw))
     return mw.decode()
+
+def notfound(request):
+    return render(request,'404.html',locals())

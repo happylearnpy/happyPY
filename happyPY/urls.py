@@ -46,6 +46,7 @@ urlpatterns = [
     path('practice_course/',views.practice_course,name='practice_course'),
     path('forget_passwd/', views.forget_passwd,name='forget_passwd'),
     path('forget_passwd1/',views.forget_passwd1,name="forget_passwd1"),
+    path('404/',views.notfound,name='404'),
 
 
 
