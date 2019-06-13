@@ -205,27 +205,22 @@
     <div class="row">
       <div class="col-md-4 col-sm-4 footer_panel bottom25">
         <h3 class="heading bottom25">关于我们<span class="divider-left"></span></h3>
-        <a href="{% url 'home' %}" class="footer_logo bottom25"><img src="{% static 'img/logo-white.png' %}" alt="Edua" width="107px" height="48px"></a>
-        <p>本产品致力于推出具有智能引导、内容新颖有趣、上手简单的Python课程，提供编程环境和实用性强的工具集。有效提升青少年的逻辑思维能力、科学系统高效地学习Python；为职场编程新人提供实战课程，面向实际工作，助力职场发展。</p>
+        <p style="font-size: 14px">本产品致力于推出具有智能引导、内容新颖有趣、上手简单的Python课程，提供编程环境和实用性强的工具集。有效提升青少年的逻辑思维能力、科学系统高效地学习Python；为职场编程新人提供实战课程，面向实际工作，助力职场发展。</p>
       </div>
       <div class="col-md-4 col-sm-4 footer_panel bottom25">
         <h3 class="heading bottom25">快速链接<span class="divider-left"></span></h3>
-        <ul class="links">
-          <li><a href="#."><i class="icon-chevron-small-right"></i>首页</a></li>
-          <li><a href="#."><i class="icon-chevron-small-right"></i>基础课程</a></li>
-          <li><a href="#."><i class="icon-chevron-small-right"></i>实战课程</a></li>
-          <li><a href="#."><i class="icon-chevron-small-right"></i>编程环境</a></li>
-          <li><a href="#."><i class="icon-chevron-small-right"></i>工具集</a></li>
-          <li><a href="#."><i class="icon-chevron-small-right"></i>在线客服</a></li>
-          <li><a href="#."><i class="icon-chevron-small-right"></i>联系我们</a></li>
-          <li><a href="#."><i class="icon-chevron-small-right"></i>登录/注册</a></li>
+        <ul class="links" style="font-family: 'Roboto'">
+          <li><a href="{% url 'basic_course' %}"><i class="icon-chevron-small-right"></i>基础课程</a></li>
+          <li><a href="{% url 'practice_course' %}"><i class="icon-chevron-small-right"></i>实战课程</a></li>
+          <li><a href="{% url 'ide' %}"><i class="icon-chevron-small-right"></i>编程环境</a></li>
+          <li><a href="{% url 'tool_display' %}"><i class="icon-chevron-small-right"></i>工具集</a></li>
         </ul>
       </div>
       <div class="col-md-4 col-sm-4 footer_panel bottom25">
         <h3 class="heading bottom25">联系我们 <span class="divider-left"></span></h3>
-          <p class=" address"><a href="https://wx.qq.com/" class="wechat" target="_blank"><i class="fa fa-wechat"></i>&nbsp;xxxxxx</a></p>
-        <p class=" address"><a href="https://weibo.com/" class="weibo" target="_blank"><i class="icon-sina-weibo"></i>&nbsp;@快乐学Python</a></p>
-        <p class=" address"><a href="http://mail.10086.cn/" class="mail" target="_blank"><i class="icon-mail"></i>&nbsp;happypython@139.com</a></p>
+          <p class=" address" style="font-size: 14px"><a href="https://wx.qq.com/" class="wechat" target="_blank"><i class="fa fa-wechat"></i>&nbsp;xxxxxx</a></p>
+        <p class=" address" style="font-size: 14px"><a href="https://weibo.com/" class="weibo" target="_blank"><i class="icon-sina-weibo"></i>&nbsp;@快乐学Python</a></p>
+        <p class=" address" style="font-size: 14px"><a href="http://mail.10086.cn/" class="mail" target="_blank"><i class="icon-mail"></i>&nbsp;happypython@139.com</a></p>
       </div>
     </div>
   </div>
