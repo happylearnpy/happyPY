@@ -87,11 +87,15 @@
             {#-------提交代码执行结果#}
             $("#submit").bind("click", function () {
                 var code=testEditor.getValue();
+                re=/(import|from)\s+(\w+(\.)*\w+,)*(os|sys)/;
                 if(code==''){
                     alert("亲你提交的代码是空的哦，请务必填写需要提交的代码啊，拜托了！");
                 }
                 else if(post_time_interval<10){
                     alert('亲你代码提交得过于频繁，请稍等再试哦~~~~');
+                }
+                else if(re.test(code)){
+                    alert("亲你提交的代码中包含os或sys模块哦，请修改后提交~~~");
                 }
                 else{
                     post_time_interval=0;
