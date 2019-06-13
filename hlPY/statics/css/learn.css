@@ -3,7 +3,7 @@ button{
 }
 #course{
     overflow-y: auto;
-    height: 520px;
+    height: 320px;
     border-width:2px;
     border-style:solid;
     border-color: #d7d4f0;
