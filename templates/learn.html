@@ -291,6 +291,7 @@
             $("#submit").bind("click", function () {
                 var course = document.getElementById("course");
                 var code = testEditor.getValue();
+                var re=/(import|from)\s+(\w+(\.)*\w+,)*(os|sys)/;
                 //获得post提交的token
                 var token = document.getElementsByTagName('input')[0].value;
                 if (code == '') {
@@ -320,7 +321,10 @@
                     //判断提交时间是否过于频繁，提交间隔小于10秒不得重复提交
                     if (post_time_interval < 10) {
                         alert('亲你代码提交得过于频繁，请稍等再试哦~~~~');
-                    } else {
+                    } else if(re.test(code)){
+                        alert("亲你提交的代码中包含os或sys模块哦，请修改后提交~~~");
+                    }
+                    else {
                         post_time_interval = 0;
                         {#------在课程对话框中显示代码#}
                         var container = document.createElement('div');

@@ -18,9 +18,9 @@
 {% endblock %}
 {% block content %}
 
-{% csrf_token %}
+    {% csrf_token %}
     <!--  code area-->
-    <div class="panel panel-default" >
+    <div class="panel panel-default">
 
 
         <div>
@@ -86,32 +86,41 @@
 
             {#-------提交代码执行结果#}
             $("#submit").bind("click", function () {
-                var code=testEditor.getValue();
-                if(code==''){
-                    alert("亲你提交的代码是空的哦，请务必填写需要提交的代码啊，拜托了！");
-                }
-                else if(post_time_interval<10){
-                    alert('亲你代码提交得过于频繁，请稍等再试哦~~~~');
-                }
-                else{
-                    post_time_interval=0;
-                    var postData = {'code': code};
-                $.ajax({
-                    async: false,
-                    cache: false,
-                    type: 'POST',
-                    url: "{% url 'testcode' %}",
-                    dataType: "json",
-                    data: postData,
-                    error: function () {
-                        alert('请求失败');
-                    },
-                    success: function (data) {
-                        $("#result").val(data.output)
-                    }
-                });
-                }
+                var code = testEditor.getValue();
+                {#------匹配是否使用了os或sys模块#}
+                var re = /(import|from)\s+(\w+(\.)*\w+,)*(os|sys)/;
 
+                if (code == '') {
+                    alert("亲你提交的代码是空的哦，请务必填写需要提交的代码啊，拜托了！");
+                } else if (post_time_interval < 10) {
+                    alert('亲你代码提交得过于频繁，请稍等再试哦~~~~');
+                } else if (re.test(code)) {
+                    alert("亲你提交的代码中包含os或sys模块哦，请修改后提交~~~");
+                } else {
+                    post_time_interval = 0;
+                    {#------匹配用户打开文件的文件名#}
+                    var re_filename = /open\(([\'\"][^,]+\\+(\w+\.\w+)[\'\"])(,[\'\"]\w+[+]*[\'\"])*\)/;
+                    var filename = "'"+code.match(re_filename)[2]+"'";
+                    {#------为代码中的文件名增加用户名路径#}
+                    var newfilename = code.match(re_filename)[1];
+                    code=code.replace(newfilename, filename);
+                    alert(code);
+                    var postData = {'code': code};
+                    $.ajax({
+                        async: false,
+                        cache: false,
+                        type: 'POST',
+                        url: "{% url 'testcode' %}",
+                        dataType: "json",
+                        data: postData,
+                        error: function () {
+                            alert('请求失败');
+                        },
+                        success: function (data) {
+                            $("#result").val(data.output)
+                        }
+                    });
+                }
 
 
             });
