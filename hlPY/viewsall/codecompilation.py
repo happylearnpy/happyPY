@@ -1,8 +1,8 @@
 #-*- coding:utf8 -*-
-import os, sys, subprocess, tempfile, time
+import os, sys, subprocess, tempfile, time,shutil
 
-# 创建临时文件夹,返回临时文件夹路径
-TempFile = tempfile.mkdtemp(prefix='python_')
+
+
 # 文件名
 FileNum = int(time.time() * 1000)
 # python编译器位置
@@ -24,11 +24,15 @@ def get_pyname():
 
 
 # 接收代码写入文件
-def write_file(pyname, code):
-    fpath = os.path.join(TempFile, '%s.py' % pyname)
+def write_file(pyname, code,username):
+    # 创建临时文件夹,返回临时文件夹路径
+    dir = os.path.join('E:\\temp',username)
+    if not os.path.exists(dir):
+        os.mkdir(dir)
+    os.chdir(dir)
+    fpath = os.path.join(dir, '%s.py' % pyname)
     with open(fpath, 'w', encoding='utf-8') as f:
         f.write(code)
-    print('file path: %s' % fpath)
     return fpath
 
 
@@ -42,11 +46,11 @@ def decode(s):
         # 主执行函数
 
 
-def main(code):
+def main(code,username):
     r = dict()
     r["version"] = get_version()
     pyname = get_pyname()
-    fpath = write_file(pyname, code)
+    fpath = write_file(pyname, code,username)
     try:
         # subprocess.check_output 是 父进程等待子进程完成，返回子进程向标准输出的输出结果
         # stderr是标准输出的类型
@@ -71,7 +75,9 @@ def main(code):
     finally:
         # 删除文件(其实不用删除临时文件会自动删除)
         try:
-            os.remove(fpath)
+            os.chdir('E:\\temp')
+            dir = os.path.join('E:\\temp', username)
+            shutil.rmtree(dir)
         except Exception as e:
             exit(1)
 
@@ -109,13 +115,10 @@ def correct(file):
 
 
 if __name__ == '__main__':
-  #code = "import math           math.sqrt(16)"
-
-  code = "while True:print(1)"
-  result=main(code)
-  file = 'E:\\python\\happyPY\\hlPY\\results\\practice\\test.txt'
-  result1=correct(file)
-  print(result)
+  code = "open('test.txt','w+')"
+  result = main(code,'111')
+  #file = 'E:\\python\\happyPY\\hlPY\\results\\practice\\test.txt'
+  #result1=correct(file)
   #print(result1)
 
 

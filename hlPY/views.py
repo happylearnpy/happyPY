@@ -132,9 +132,12 @@ def test(request):
 def testcode(request):
     if request.method == 'POST':
         # 获取用户输入的代码
+        username = request.session["user"]
+        print(username)
         code = request.POST.get("code")
+        print(code)
         ## 调用codecompilation.py中的main函数，执行用户输入，并返回结果保存到result
-        result = codecompilation.main(code)
+        result = codecompilation.main(code,username)
         # 将用户代码执行的结果进行json化并返回
         return HttpResponse(json.dumps(result), content_type="application/json")
     else:
@@ -1004,6 +1007,7 @@ def basic_course_post(request):
 @csrf_exempt
 def basic_course_post(request):
     if request.method == 'POST':
+        username = request.session["user"]
         course_contant_info = {}
         basic_id_id = request.POST.get('course_id')
         basic_id = int(basic_id_id)
@@ -1015,7 +1019,7 @@ def basic_course_post(request):
         code = request.POST.get("code")
         print(code)
         # 调用codecompilation.py中的main函数，执行用户输入，并返回结果保存到user_result
-        user_result = codecompilation.main(code)
+        user_result = codecompilation.main(code,username)
         # filename为课程id_章节id_语句id.txt
         filename = basic_id_id + '_' + chapter_id_id + '_' + contantid + '.txt'
         # 拼接课程答案保存路径
@@ -1065,6 +1069,7 @@ def basic_course_post(request):
 @csrf_exempt
 def practice_course_post(request):
     if request.method == 'POST':
+        username = request.session["user"]
         course_contant_info = {}
         practice_id_id = request.POST.get('course_id')
         practice_id = int(practice_id_id)
@@ -1075,7 +1080,7 @@ def practice_course_post(request):
         # code用户输入的代码
         code = request.POST.get("code")
         # 调用codecompilation.py中的main函数，执行用户输入，并返回结果保存到user_result
-        user_result = codecompilation.main(code)
+        user_result = codecompilation.main(code,username)
         # filename为课程id_章节id_语句id.txt
         filename = practice_id_id + '_' + chapter_id_id + '_' + contantid + '.txt'
         # 拼接课程答案保存路径
